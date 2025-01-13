@@ -37,7 +37,7 @@ else:
         y1 = UserCoordinates[1]
         x2 = Coordinates[0]
         y2 = Coordinates[1]
-        res = round(math.sqrt((x1 - x2) ** 2 + (y1 - y2) ** 2), 1)
+        res = str(round(math.sqrt((x1 - x2) ** 2 + (y1 - y2) ** 2), 1)) + ' Метрів'
         distances.setdefault(i, res)
     distances.pop(DataUserKeys)
     for item in distances.items():
