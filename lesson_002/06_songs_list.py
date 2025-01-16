@@ -17,10 +17,17 @@ violator_songs_list = [
 
 # распечатайте общее время звучания трех песен: 'Halo', 'Enjoy the Silence' и 'Clean' в формате
 #   Три песни звучат ХХХ минут
-# Обратите внимание, что делать много вычислений внутри print() - плохой стиль.
+# Обратите внимание, что делать много вычислений внутри print() - плохой стиль. (буду знати)
 # Лучше заранее вычислить необходимое, а затем в print(xxx, yyy, zzz)
 
-# TODO здесь ваш код
+def songs_list(data, imp_data):
+    res = 0
+    for i in imp_data :
+        for lists in data:
+            if lists[0] == i :
+                res = res + lists[-1]
+    # Я б не робив округлення якщо тут не видавало .93000000001 чи щось таке не пам'ятаю.
+    return round(res, 2)
 
 # Есть словарь песен группы Depeche Mode
 violator_songs_dict = {
@@ -38,4 +45,23 @@ violator_songs_dict = {
 # распечатайте общее время звучания трех песен: 'Sweetest Perfection', 'Policy of Truth' и 'Blue Dress'
 #   А другие три песни звучат ХХХ минут
 
-# TODO здесь ваш код
+def songs_dict(data, imp_data):
+    res = 0
+    for i in imp_data :
+        for dicts in data:
+            if dicts[0] == i :
+                res = res + dicts[-1]
+    return round(res, 2)
+
+
+def main():
+    sum_time_song1 = songs_list(violator_songs_list,
+                                imp_data=['Halo', 'Enjoy the Silence', 'Clean'])
+    sum_time_song2 = songs_dict(violator_songs_list,
+                                imp_data=['Sweetest Perfection', 'Policy of Truth', 'Blue Dress'])
+
+    print(f'Три песни звучат {sum_time_song1} минут')
+    print(f'А другие три песни звучат {sum_time_song2} минут')
+
+if __name__ == '__main__' :
+    main()
