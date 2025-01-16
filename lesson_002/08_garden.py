@@ -38,19 +38,17 @@ def middle_flover(*sets: set):
 # выведите на консоль те, которые растут в саду, но не растут на лугу
 def only_garden_flover(flov_garden, flov_meadow) :
     res = ''
-    middle = middle_flover(flov_meadow, flov_garden)
-    for i in flov_garden :
+    only_garden = flov_garden.difference(flov_meadow)
+    for i in only_garden:
         res = res + i + ', '
-    res = res + middle
     return res
 
 # выведите на консоль те, которые растут на лугу, но не растут в саду
 def only_meadow_flover(flov_garden, flov_meadow) :
     res = ''
-    middle = middle_flover(flov_meadow, flov_garden)
-    for i in flov_meadow :
+    only_meadow = flov_meadow.difference(flov_garden)
+    for i in only_meadow :
         res = res + i + ', '
-    res = res + middle
     return res
 
 
@@ -58,13 +56,13 @@ def main():
     garden_set = flover_set(garden)
     meadow_set = flover_set(meadow)
     alls = all_flover(garden_set, meadow_set)
-    print(f'Все виды цветов: {alls}.')
+    print(f'Все виды цветов: {alls[:-2]}.')
     middle = middle_flover(garden_set, meadow_set)
-    print(f'Цвети которые растут и там, и там: {middle}.')
+    print(f'Цвети которые растут и там, и там: {middle[:-2]}.')
     only_garden = only_garden_flover(garden_set, meadow_set)
-    print(f'Цвети которые растут в саду, но не растут на лугу: {only_garden}.')
+    print(f'Цвети которые растут в саду, но не растут на лугу: {only_garden[:-2]}.')
     only_meadow = only_meadow_flover(garden_set, meadow_set)
-    print(f'Цвети которые растут на лугу, но не растут в саду: {only_meadow}')
+    print(f'Цвети которые растут на лугу, но не растут в саду: {only_meadow[:-2]}.')
 
 if __name__ == '__main__' :
     main()
