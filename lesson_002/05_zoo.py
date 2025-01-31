@@ -5,18 +5,23 @@
 
 zoo = ['lion', 'kangaroo', 'elephant', 'monkey', ]
 
+
 # посадите медведя (bear) между львом и кенгуру
 #  и выведите список на консоль
 def write(data):
     zoo.insert(1, data)
     return None
 
+
 # добавьте птиц из списка birds в последние клетки зоопарка
 birds = ['rooster', 'ostrich', 'lark', ]
+
+
 #  и выведите список на консоль
-def  extension(data):
+def extension(data):
     zoo.extend(data)
     return None
+
 
 # уберите слона (elephant)
 #  и выведите список на консоль
@@ -31,14 +36,16 @@ def cage(data):
     res = zoo.index(data)
     return res
 
+
 def out():
     res = ''
     for index, x in enumerate(zoo):
-        if index == len(zoo)-1:
+        if index == len(zoo) - 1:
             res = res + zoo[index] + '.'
         else:
             res = res + zoo[index] + ', '
     return res
+
 
 def main():
     # Перший варіант кода. Але мені не сподобалося, як воно виводить списки(не гарно).
@@ -62,7 +69,5 @@ def main():
           f' жаворонок в {cage('lark') + 1} клітці.')
 
 
-
-
-if __name__ == '__main__' :
+if __name__ == '__main__':
     main()

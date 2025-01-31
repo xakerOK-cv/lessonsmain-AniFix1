@@ -6,6 +6,7 @@ import math
 # Есть значение радиуса круга
 radius = 42
 
+
 # Выведите на консоль значение прощади этого круга с точностю до 4-х знаков после запятой
 # подсказки:
 #       формулу можно подсмотреть в интернете,
@@ -19,6 +20,8 @@ def area(rad):
 
 # Далее, пусть есть координаты точки
 point_1 = (23, 34)
+
+
 # где 23 - координата х, 34 - координата у
 
 # Если точка point_1 лежит внутри того самого круга (radius = 42), то выведите на консоль True,
@@ -29,7 +32,7 @@ point_1 = (23, 34)
 #       квадратный корень - это возведение в степень 0.5
 #       операции сравнения дают булевы константы True и False
 
-def point_in_a_circle(point_x, point_y, radius_circle = None):
+def point_in_a_circle(point_x, point_y, radius_circle=None):
     loong = math.sqrt(point_x ** 2 + point_y ** 2)
     if radius_circle is not None:
         res = loong >= radius_circle
@@ -40,6 +43,8 @@ def point_in_a_circle(point_x, point_y, radius_circle = None):
 
 # Аналогично для другой точки
 point_2 = (30, 30)
+
+
 # Если точка point_2 лежит внутри круга (radius = 42), то выведите на консоль True,
 # Или False, если точка лежит вовне круга.
 
@@ -52,7 +57,7 @@ def main():
           f'\n {point_in_a_circle(point_1[0], point_1[-1], radius)}')
 
     print(f'\nЧи знаходиться точка {point_2} в колі?(Довжина точки:'
-          f' {round(point_in_a_circle(point_2[0], point_2[-1]), 2) }см) '
+          f' {round(point_in_a_circle(point_2[0], point_2[-1]), 2)}см) '
           f'\n {point_in_a_circle(point_2[0], point_2[-1], radius)}')
 
 
@@ -63,7 +68,5 @@ def main():
 # False
 
 
-
-
-if __name__ == "__main__" :
+if __name__ == "__main__":
     main()
