@@ -52,3 +52,5 @@ else:
     # Спроба гарно вивести значення
     for item in distances.items():
         print(f'Від {DataUserKeys} До {item[0]}: {item[1]} Кілометрів')
+
+     # В цілому все супер)) 
