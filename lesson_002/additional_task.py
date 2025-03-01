@@ -1,4 +1,6 @@
 import pprint
+from weakref import finalize
+
 
 # 1 завдання
 def even_numbers(user):
@@ -10,15 +12,28 @@ def even_numbers(user):
             res += [x]
     return res
 
-
+# 2 завдання
+def summation(user):
+    res = 0
+    for i in user :
+        if i > 0 :
+            res += i
+    return res
 
 
 def main():
     # 1 завдання
-    user_number = int(input("Введіть до куда порахувати парні числа: "))
-    pprint.pprint(even_numbers(user_number), width=40, compact=True)
+    user_number1 = int(input("Введіть до куда порахувати парні числа: "))
+    pprint.pprint(even_numbers(user_number1), width=40, compact=True)
 
-    # todo 2. Користувач вводить 5 чисел. Програма підраховує та виводить суму тільки додатних чисел.
+    # 2 завдання
+    i = 1
+    user_number2 = []
+    print("\nВведіть числа, які потрібно сумувати, по черзі(дія виконається тільки з додатніми): ")
+    while i <= 5 :
+        user_number2.append(int(input(f"№{i} : ")))
+        i += 1
+    print(summation(user_number2))
 
     # todo 3. Створити програму, яка запитує у користувача число n і виводить таблицю множення для цього числа від 1 до 10.
 
