@@ -1,13 +1,22 @@
+import pprint
 
-
-
+# 1 завдання
+def even_numbers(user):
+    res = []
+    x = 1
+    while x <= user :
+        x += 1
+        if x % 2 == 0 :
+            res += [x]
+    return res
 
 
 
 
 def main():
-    pass
-    # todo 1. Вивести всі парні числа від 1 до n. Користувач вводить число n, і програма повинна надрукувати всі парні числа в цьому діапазо0ні.
+    # 1 завдання
+    user_number = int(input("Введіть до куда порахувати парні числа: "))
+    pprint.pprint(even_numbers(user_number), width=40, compact=True)
 
     # todo 2. Користувач вводить 5 чисел. Програма підраховує та виводить суму тільки додатних чисел.
 
