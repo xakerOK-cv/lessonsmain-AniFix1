@@ -1,4 +1,4 @@
-import pprint
+from pprint import pprint
 
 
 # 1 завдання
@@ -19,11 +19,18 @@ def summation(user):
             res += i
     return res
 
+# 3 завдання
+def multiplication_table(integer=0):
+    res = []
+    for i in range(1, 11):
+        res.append(f"{i} * {integer} = " + str(i * integer))
+    return res
+
 
 def main():
     # 1 завдання
     user_number1 = int(input("Введіть до куда порахувати парні числа: "))
-    pprint.pprint(even_numbers(user_number1), width=40, compact=True)
+    pprint(even_numbers(user_number1), width=40, compact=True)
 
     # 2 завдання
     i = 1
@@ -34,7 +41,9 @@ def main():
         i += 1
     print(summation(user_number2))
 
-    # todo 3. Створити програму, яка запитує у користувача число n і виводить таблицю множення для цього числа від 1 до 10.
+    # 3 завдання
+    user_number3 = int(input("Введіть число для якого потрібно зробити таблицю множення: "))
+    pprint(multiplication_table(integer=user_number3), compact=True, width=40)
 
     # todo 4. Написати програму, яка перевіряє, чи є введене число простим (ділиться тільки на 1 і на себе).
 
