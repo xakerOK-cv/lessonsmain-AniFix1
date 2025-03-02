@@ -1,5 +1,4 @@
 import pprint
-from weakref import finalize
 
 
 # 1 завдання
