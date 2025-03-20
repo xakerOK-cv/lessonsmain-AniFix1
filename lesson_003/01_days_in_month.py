@@ -12,3 +12,7 @@ month = int(user_input)
 print('Вы ввели', month)
 
 # TODO здесь ваш код
+
+
+if __name__ == '__main__':
+    pass
