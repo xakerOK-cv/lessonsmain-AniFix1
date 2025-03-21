@@ -20,7 +20,10 @@ paper_x, paper_y = 8, 9
 # paper_x, paper_y = 9, 11
 # (просто раскоментировать нужную строку и проверить свой код)
 
-# TODO здесь ваш код
+def envelop(env_x, env_y, pap_x, pap_y):
+    height = env_y >= pap_y
+    width = env_x >= pap_x
+    return height and width
 
 # Усложненное задание, решать по желанию.
 # Заданы размеры hole_x, hole_y прямоугольного отверстия и размеры brick_х, brick_у, brick_z кирпича (все размеры
@@ -28,8 +31,8 @@ paper_x, paper_y = 8, 9
 #
 # Определить, пройдет ли кирпич через отверстие (грани кирпича параллельны сторонам отверстия)
 
-# hole_x, hole_y = 8, 9
-# brick_x, brick_y, brick_z = 11, 10, 2
+hole_x, hole_y = 8, 9
+brick_x, brick_y, brick_z = 11, 10, 2
 # brick_x, brick_y, brick_z = 11, 2, 10
 # brick_x, brick_y, brick_z = 10, 11, 2
 # brick_x, brick_y, brick_z = 10, 2, 11
@@ -49,4 +52,28 @@ paper_x, paper_y = 8, 9
 # brick_x, brick_y, brick_z = 3, 11, 6
 # (просто раскоментировать нужную строку и проверить свой код)
 
-# TODO здесь ваш код
+def if_hole_brick(side_hole, x, y):
+    res = False
+    if side_hole >= x:
+        res = True
+    elif side_hole >= y:
+        res = True
+    return res
+
+def hole_and_brick(hole__x, hole__y, brick__x, brick__y, brick__z):
+    res = False
+    if hole__x >= brick__x :
+        res = if_hole_brick(hole__y, brick__y, brick__z)
+    elif hole__x >= brick__y :
+        res = if_hole_brick(hole__y, brick__x, brick__z)
+    elif hole__x >= brick__z :
+        res = if_hole_brick(hole__y, brick__x, brick__y)
+    return res
+
+def main():
+    print('Чи помістився папір в конверт?', envelop(envelop_x, envelop_y, paper_x, paper_y))
+    print('Чи ввійде цеглина в отвір? ', hole_and_brick(hole_x, hole_y, brick_x, brick_y, brick_z))
+    return
+
+if __name__ == '__main__':
+    main()
