@@ -46,7 +46,26 @@ store = {
 #         подсчет стоимости товара
 #     вывод на консоль количества и стоимости товара на складе
 
-# TODO здесь ваш код
+def main():
+    # Цей костиль, це витвір мистецтва. Я називаю його, "Спагеті по арабські"
+    for ware in goods.keys():
+        code_ware = goods.get(ware)
+        quantity_and_price = [0, 0]
+        for pass_ware in store.keys():
+            if code_ware == pass_ware :
+                for info_goods in store.get(pass_ware):
+                    for index, value in enumerate(info_goods.values()):
+                        if index == 0 :
+                            quantity_and_price[0] += value
+                        else:
+                            quantity_and_price[1] += value
+                break
+        print(f'{ware} - {quantity_and_price[0]} шт, вартість {quantity_and_price[1]} рублів')
+
+    return
+
+if __name__ == '__main__':
+    main()
 
 
 
