@@ -5,19 +5,20 @@ from random import randrange
 # (определение функций)
 import simple_draw as sd
 
+
 # Написать функцию отрисовки смайлика в произвольной точке экрана
 # Форма рожицы-смайлика на ваше усмотрение
 # Параметры функции: кордината X, координата Y, цвет.
 # Вывести 10 смайликов в произвольных точках экрана.
 
 def smile(coordinate_x, coordinate_y, color=sd.COLOR_YELLOW):
-    smile_coordinate = [sd.Point(coordinate_x-50, coordinate_y-45),
-                        sd.Point(coordinate_x+50,coordinate_y+45)]
+    smile_coordinate = [sd.Point(coordinate_x - 50, coordinate_y - 45),
+                        sd.Point(coordinate_x + 50, coordinate_y + 45)]
     sd.ellipse(smile_coordinate[0], smile_coordinate[1], color)
-    eye_smile = [sd.Point((coordinate_x-25)-7, (coordinate_y+16)-7),
-                 sd.Point((coordinate_x-25)+7, (coordinate_y+16)+7),
-                 sd.Point((coordinate_x+25)-7, (coordinate_y+16)-7),
-                 sd.Point((coordinate_x+25)+7, (coordinate_y+16)+7),]
+    eye_smile = [sd.Point((coordinate_x - 25) - 7, (coordinate_y + 16) - 7),
+                 sd.Point((coordinate_x - 25) + 7, (coordinate_y + 16) + 7),
+                 sd.Point((coordinate_x + 25) - 7, (coordinate_y + 16) - 7),
+                 sd.Point((coordinate_x + 25) + 7, (coordinate_y + 16) + 7), ]
     random_color = sd.COLOR_DARK_CYAN
     while random_color == color:
         random_color = sd.random_color()
@@ -47,7 +48,6 @@ def smile(coordinate_x, coordinate_y, color=sd.COLOR_YELLOW):
     #                (coordinate_y - 20) + round((abs(i) * bank) / 10)]]
     # coordinate_list.extenad(coo_1,coo_2)
 
-
     # 1. Хотів зробити гарно, а вийшло, як завжди(не звертайте увагу воно просто їснує, і щось робить)
 
     # x = 2
@@ -60,6 +60,7 @@ def smile(coordinate_x, coordinate_y, color=sd.COLOR_YELLOW):
     sd.lines(coordinate_list, random_color, width=4)
     return
 
+
 def main():
     sd.resolution = (1000, 700)
     for i in range(10):
@@ -68,6 +69,7 @@ def main():
         smile(x, y, sd.COLOR_GREEN)
     sd.pause()
     return
+
 
 if __name__ == '__main__':
     main()

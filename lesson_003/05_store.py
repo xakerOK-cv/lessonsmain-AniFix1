@@ -30,6 +30,7 @@ store = {
     ],
 }
 
+
 # Рассчитать на какую сумму лежит каждого товара на складе.
 #
 # Вывести суммарную стоимость каждого товара на складе c помощью циклов
@@ -52,10 +53,10 @@ def main():
         code_ware = goods.get(ware)
         quantity_and_price = [0, 0]
         for pass_ware in store.keys():
-            if code_ware == pass_ware :
+            if code_ware == pass_ware:
                 for info_goods in store.get(pass_ware):
                     for index, value in enumerate(info_goods.values()):
-                        if index == 0 :
+                        if index == 0:
                             quantity_and_price[0] += value
                         else:
                             quantity_and_price[1] += value
@@ -64,11 +65,6 @@ def main():
 
     return
 
+
 if __name__ == '__main__':
     main()
-
-
-
-
-
-

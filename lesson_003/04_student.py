@@ -22,9 +22,11 @@ def price_inflation(funds, inflation, duration):
         res += funds
     return res
 
+
 def remaining(funds, total_costs, duration):
     res = (funds * duration) - total_costs
     return res
+
 
 def main():
     need_funds = price_inflation(expenses, inflation_rate, period)
@@ -35,6 +37,7 @@ def main():
         arrears = abs(arrears)
     print(f'Студенту потрібно попросити {arrears} рублів')
     return
+
 
 if __name__ == '__main__':
     main()

@@ -23,7 +23,7 @@ def main():
         month = int(input_user)
 
         if 12 >= month > 0:
-            print(f'Ви ввели {month} місяць, в ньому {months[month-1]} днів.')
+            print(f'Ви ввели {month} місяць, в ньому {months[month - 1]} днів.')
 
         else:
             print('Ви ввели не існуючи номер місяця\n')
@@ -31,9 +31,6 @@ def main():
     else:
         print('Ви ввели не коректну дату, введіть будь-ласка, номер цифрою\n')
         main()
-
-
-
 
 
 if __name__ == '__main__':
