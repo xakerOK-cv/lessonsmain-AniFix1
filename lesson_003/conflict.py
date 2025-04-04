@@ -1,1 +1,2 @@
-print('Привіт світ!')
+print('Привіт світ!') #hahah
+print('Hack') 
