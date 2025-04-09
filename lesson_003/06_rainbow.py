@@ -36,7 +36,7 @@ def round_rainbow(center, radius, color_list, thickness=1):
 
 
 def main():
-    x = int(input('input : '))
+    x = int(input('input : ')) # пиши що ввести а то паніка)
     sd.resolution = (500, 500)
     if x == 1:
         seven_lines(Point_1, Point_2, rainbow_colors, 5, 4)
@@ -47,3 +47,5 @@ def main():
 
 if __name__ == '__main__':
     main()
+
+# вибір 1 0) краще ніж в завданні

@@ -37,3 +37,7 @@ def main():
 
 if __name__ == '__main__':
     main()
+
+
+# isinstance так один з гарних варіантів, 0 < i < 1 
+# OK
