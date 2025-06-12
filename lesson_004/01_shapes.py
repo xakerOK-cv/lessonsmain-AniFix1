@@ -27,7 +27,39 @@ import simple_draw as sd
 # sd.line()
 # Результат решения см lesson_004/results/exercise_01_shapes.jpg
 
-# TODO здесь ваш код
+# Приклад, як було раніше в кожній функцію
+# def triangle(start, angel, length):
+#     start_point = sd.Point(start[0], start[1])
+#
+#     start_point = sd.vector(start_point, angel, length, width=2)
+#     angel += round(180 - ((3 - 2) / 3 * 180), 1)
+#
+#     start_point = sd.vector(start_point, angel, length, width=2)
+#     angel += round(180 - ((3 - 2) / 3 * 180), 1)
+#
+#     sd.vector(start_point, angel, length, width=2)
+#     return None
+
+
+
+def triangle(start, angel, length):
+    figures(start, angel, length, 3)
+    return None
+
+
+def square(start, angel, length):
+    figures(start, angel, length, 4)
+    return None
+
+
+def pentagon(start, angel, length):
+    figures(start, angel, length, 5)
+    return None
+
+
+def hexagon(start, angel, length):
+    figures(start, angel, length, 6)
+    return None
 
 # Часть 1-бис.
 # Попробуйте прикинуть обьем работы, если нужно будет внести изменения в этот код.
@@ -47,10 +79,41 @@ import simple_draw as sd
 # Не забудте в этой общей функции придумать, как устранить разрыв
 #   в начальной/конечной точках рисуемой фигуры (если он есть)
 
+def figures(start, angel, length, corner):
+    start_point = sd.Point(start[0], start[1])
+
+    for _ in range(corner):
+        start_point = sd.vector(start_point, angel, length, width=2)
+        angel += round(180 - ((corner - 2) / corner * 180), 1)
+
+    return None
+
 # Часть 2-бис.
 # А теперь - сколько надо работы что бы внести изменения в код? Выгода на лицо :)
 # Поэтому среди программистов есть принцип D.R.Y. https://clck.ru/GEsA9
 # Будьте ленивыми, не используйте копи-пасту!
 
+def main():
+    sd.resolution = (700, 700)
 
-sd.pause()
+    figure = int(input("Введіть значення:"))
+    if figure == 3:
+        triangle([250, 250], 0, 200)
+    elif figure == 4:
+        square([250, 250], 0, 200)
+    elif figure == 5:
+        pentagon([250, 250], 0, 200)
+    elif figure == 6:
+        hexagon([250, 250], 0, 200)
+    else:
+        print("Пропуск фігур")
+
+
+    sd.pause()
+
+    return None
+
+if __name__ == '__main__':
+    main()
+
+
