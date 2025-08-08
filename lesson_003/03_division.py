@@ -1,5 +1,4 @@
 # -*- coding: utf-8 -*-
-from decimal import Decimal
 
 # (цикл while)
 
@@ -12,32 +11,16 @@ from decimal import Decimal
 a, b = 179, 37
 
 
-def division(number_1, number_2):
-    res = 0
-    i = 3
-    x = 1.0
-    while i > 0:
-        if number_1 > 0:
-            if isinstance(number_1, int) and number_1 - number_2 > 0:
-                number_1 -= number_2
-                res += 1 * Decimal(x)
-            else:
-                number_1 *= 10
-                x *= 0.1
-                i -= 1
-        else:
-            break
-    return round(res, 2)
+# TODO здесь ваш код
+=======
+c = 0
+n = 3
+while c < n:
+    print('Целочисленное деление',a,'на',b,'дает',round(a/b))
+    c += 1
+# выводит 4.8, округлил до 5
 
 
-def main():
-    print(f'Ділення числа {a} на {b} дає {division(a, b)}')
-    return
 
 
-if __name__ == '__main__':
-    main()
 
-
-# isinstance так один з гарних варіантів, 0 < i < 1 
-# OK

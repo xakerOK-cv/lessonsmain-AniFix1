@@ -10,37 +10,25 @@
 #   Студенту надо попросить ХХХ.ХХ рублей
 
 educational_grant, expenses = 10000, 12000
-inflation_rate, period = 3, 10
 
 
-def price_inflation(funds, inflation, duration):
-    inflation = inflation / 100 + 1
-    duration, res = duration - 1, funds
-    while duration > 0:
-        duration -= 1
-        funds *= inflation
-        res += funds
-    return res
+# TODO здесь ваш код
+=======
+a = 0
+n = 9
+All_expenses = expenses
+print(All_expenses)
+while a < n:
+    incruese_expense = (expenses * 0.03)
+    expenses = expenses + incruese_expense
+    All_expenses = All_expenses + expenses
+    educational_grant = educational_grant + 10000
+    print("Educational_grant: ",educational_grant)
+    print("Incruese expense: ",round(incruese_expense))
+    print("Expenses: ",round(expenses))
+    print("Global expenses: ",round(All_expenses))
+    a += 1
 
+All_needs_money = All_expenses - educational_grant
+print("Student must asked",round(All_needs_money,2),"money")
 
-def remaining(funds, total_costs, duration):
-    res = (funds * duration) - total_costs
-    return res
-
-
-def main():
-    need_funds = price_inflation(expenses, inflation_rate, period)
-    arrears = round(remaining(educational_grant, need_funds, period), 2)
-    if arrears >= 0:
-        arrears = 0
-    else:
-        arrears = abs(arrears)
-    print(f'Студенту потрібно попросити {arrears} рублів')
-    return
-
-
-if __name__ == '__main__':
-    main()
-
-
-# тут ОК просто математика, але по циклам
