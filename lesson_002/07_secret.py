@@ -2,7 +2,7 @@
 # -*- coding: utf-8 -*-
 
 # есть зашифрованное сообщение
-
+# complete
 secret_message = [
     'квевтфпп6щ3стмзалтнмаршгб5длгуча',
     'дьсеы6лц2бане4т64ь4б3ущея6втщл6б',
@@ -10,7 +10,6 @@ secret_message = [
     'ьд5фму3ежородт9г686буиимыкучшсал',
     'бсц59мегщ2лятьаьгенедыв9фк9ехб1а',
 ]
-
 
 # ключ к расшифровке:
 #   первое слово - 4-я буква
@@ -22,31 +21,12 @@ secret_message = [
 # Требуется задать конкретные индексы, например secret_message[3][12:23:4]
 # Если нужны вычисления и разные пробы - делайте это в консоли пайтона, тут нужен только результат
 
-def decoding(ciphers, keys):
-    res = ''
-    for index, cipher in enumerate(ciphers):
-        fake_res = None
-        if isinstance(keys[index], list):
-            try:
-                if keys[index][2] == 2:
-                    res = res + cipher[slice(keys[index][0] - 1, keys[index][1], keys[index][-1])] + ' '
-                elif keys[index][2] == -1:
-                    fake_res = cipher[slice(keys[index][0] - 1, keys[index][1])]
-                    res = res + fake_res[::-1] + ' '
-            except IndexError:
-                res = res + cipher[slice(keys[index][0] - 1, keys[index][1])] + ' '
-        else:
-            res = res + cipher[keys[0] - 1] + ' '
-    return res[slice(0, -1)]
+print(secret_message[0][3],
+      secret_message[1][9:13],
+      secret_message[2][5:15:2],
+      secret_message[3][12:6:-1],
+      secret_message[4][20:15:-1])
+
+# зачет !!! Все супер
 
 
-def main():
-    keys = {0: 4, 1: [10, 13], 2: [6, 15, 2],
-            3: [8, 13, -1], 4: [17, 21, -1]
-            }
-    deciphering = decoding(secret_message, keys)
-    print(deciphering)
-
-
-if __name__ == '__main__':
-    main()

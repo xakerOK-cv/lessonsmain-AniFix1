@@ -1,10 +1,8 @@
 #!/usr/bin/env python3
 # -*- coding: utf-8 -*-
 
-import math
-
 # Есть словарь координат городов
-
+# yjdsq
 
 sites = {
     'Kiev': (550, 370),
@@ -15,42 +13,21 @@ sites = {
 # Составим словарь словарей расстояний между ними
 # расстояние на координатной сетке - корень из (x1 - x2) ** 2 + (y1 - y2) ** 2
 
-distances = {}
+a1, a2 = sites['Moscow']
+b1, b2 = sites['London']
+c1, c2 = sites['Paris']
+m_l = int(((a1-b1)**2 + (a2-b2)**2) **0.5)
+m_p = int(((a1-c1)**2 + (a2-c2)**2) **0.5)
+p_l = int(((c1-b1)**2 + (c2-b2)**2) **0.5)
 
-# Запит у користувача міста від якого потрібно вирахувати відстань
+distances = {m_l,m_p,p_l}
 
-DataUserKeys = str(input('Введіть назву міста відстань до якого '
-                         f'ви хочете дізнатися (доступно {list(sites.keys())})'
-                         f'\nВвод: '))
+# completed
 
-Coordinates = []
+print(distances)
 
-# Перевірка чи є в словарю цей ключ(місто)
+# В цілому нормас, завдання виконано, але я показував на уроці, треба було словарь словарей) але нічого ОК
 
-try:
-    sites[DataUserKeys]
-except KeyError:
-    print('Перевірте місто, що ви ввели, можливо ви'
-          ' опечатались або в нас не має цього міста.')
-    print(f'Ви ввели: {DataUserKeys}\nДоступні у нас {list(sites.keys())}')
-else:
-    # Якщо є, то виповняються наступні команди
-    for i in sites.keys():
-        # В список Coordinates та UserCoordinates записуються данні по ключам
-        Coordinates = sites[i]
-        UserCoordinates = sites[DataUserKeys]
-        # Переписуються потрібні данні в потрібні перемінні для мат. операцій
-        x1 = UserCoordinates[0]
-        y1 = UserCoordinates[1]
-        x2 = Coordinates[0]
-        y2 = Coordinates[1]
-        # В перемінну записується математична операція. Після чого з потрібним ключем записали потрібні данні.
-        res = round(math.sqrt((x1 - x2) ** 2 + (y1 - y2) ** 2), 1)
-        distances.setdefault(i, res)
-    # Видалення безкорисних результатів
-    distances.pop(DataUserKeys)
-    # Спроба гарно вивести значення
-    for item in distances.items():
-        print(f'Від {DataUserKeys} До {item[0]}: {item[1]} Кілометрів')
 
-     # В цілому все супер)) 
+
+
