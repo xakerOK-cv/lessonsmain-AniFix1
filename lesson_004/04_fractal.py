@@ -2,6 +2,7 @@
 
 import simple_draw as sd
 
+
 # 1) Написать функцию draw_branches, которая должна рисовать две ветви дерева из начальной точки
 # Функция должна принимать параметры:
 # - точка начала рисования,
@@ -30,7 +31,6 @@ import simple_draw as sd
 #         draw_branches(start_point, _angle, length)
 
 
-
 # 3) первоначальный вызов:
 # root_point = get_point(300, 30)
 # draw_bunches(start_point=root_point, angle=90, length=100)
@@ -52,24 +52,24 @@ import simple_draw as sd
 # sd.random_number()
 
 def draw_branches(start_point, angle, length):
-    if length < 4 :
+    if length < 4:
         return None
     start_point = sd.vector(start_point, angle, length)
 
     # Angle Positive and Negative
-    angle_p_n = ( angle + (30 + (sd.random_number(-40, 40) / 100)),
-                  angle - (30 + (sd.random_number(-40, 40) / 100)) )
+    angle_p_n = (angle + (30 + (sd.random_number(-40, 40) / 100)),
+                 angle - (30 + (sd.random_number(-40, 40) / 100)))
     length *= (0.75 + (sd.random_number(-20, 20) / 100))
 
     for _angle in angle_p_n:
         draw_branches(start_point, _angle, length)
+
 
 def main():
     sd.resolution = (700, 750)
 
     root_point = sd.Point(350, 30)
     draw_branches(start_point=root_point, angle=90, length=100)
-
 
     sd.pause()
 

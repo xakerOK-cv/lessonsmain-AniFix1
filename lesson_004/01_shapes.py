@@ -2,6 +2,7 @@
 
 import simple_draw as sd
 
+
 # Часть 1.
 # Написать функции рисования равносторонних геометрических фигур:
 # - треугольника
@@ -41,7 +42,6 @@ import simple_draw as sd
 #     return None
 
 
-
 def triangle(start, angel, length):
     figures(start, angel, length, 3)
     return None
@@ -60,6 +60,7 @@ def pentagon(start, angel, length):
 def hexagon(start, angel, length):
     figures(start, angel, length, 6)
     return None
+
 
 # Часть 1-бис.
 # Попробуйте прикинуть обьем работы, если нужно будет внести изменения в этот код.
@@ -88,6 +89,7 @@ def figures(start, angel, length, corner):
 
     return None
 
+
 # Часть 2-бис.
 # А теперь - сколько надо работы что бы внести изменения в код? Выгода на лицо :)
 # Поэтому среди программистов есть принцип D.R.Y. https://clck.ru/GEsA9
@@ -108,12 +110,10 @@ def main():
     else:
         print("Пропуск фігур")
 
-
     sd.pause()
 
     return None
 
+
 if __name__ == '__main__':
     main()
-
-

@@ -33,31 +33,32 @@ def anim_snowflake(point, length, factors, rand, speed):
                  factor_b=factors[1], factor_c=factors[2])
     return point
 
+
 def clear_snowflake(snowflake_num, point_list, shape_list):
     shape_list[snowflake_num] = (sd.random_number(10, 100), sd.random_number(1, 100) / 100,
                                  sd.random_number(10, 100) / 100, sd.random_number(1, 179))
 
     point_list[snowflake_num] = (sd.random_number(0, 500),
-                                 sd.random_number(600+shape_list[snowflake_num][0],
-                                                  700+shape_list[snowflake_num][0]))
+                                 sd.random_number(600 + shape_list[snowflake_num][0],
+                                                  700 + shape_list[snowflake_num][0]))
+
 
 def wind_generate():
-
-
     return
+
 
 def main():
     sd.resolution = (600, 500)
     N = 20
 
     # Це список для створення вірогідності(0=55%, 1=25%, 2=15%, 3=5%)
-    rand_num_list = [0,0,0,0,0,0,0,1,1,2,
-                     0,0,0,0,0,1,1,2,2,3]
+    rand_num_list = [0, 0, 0, 0, 0, 0, 0, 1, 1, 2,
+                     0, 0, 0, 0, 0, 1, 1, 2, 2, 3]
 
     # Все до циклу while це рендер першого кадру, основи для анімації.
 
     snowflake_point = [(sd.random_number(0, 600),
-                       sd.random_number(0, 500))
+                        sd.random_number(0, 500))
                        for _ in range(N)]
 
     # Через assert, я не можу зробити діапазон від 10 до 100 тому, я зробив так, як я зрозумів це проценти від довжини
@@ -66,12 +67,11 @@ def main():
     # assert 0 < factor_b <= 1 - длина лучиков
     # assert 0 < factor_c < 180 - угол отклонения лучиков
 
-    snowflake_shape = [(sd.random_number(10, 100), # length
-                        sd.random_number(1, 100) / 100, # factor_a
-                        sd.random_number(10, 100) / 100, # factor_b
-                        sd.random_number(1, 179)) # factor_c
+    snowflake_shape = [(sd.random_number(10, 100),  # length
+                        sd.random_number(1, 100) / 100,  # factor_a
+                        sd.random_number(10, 100) / 100,  # factor_b
+                        sd.random_number(1, 179))  # factor_c
                        for _ in range(N)]
-
 
     for i in range(N):
         pre_snowflake_point = sd.Point(snowflake_point[i][0], snowflake_point[i][1])
@@ -84,17 +84,17 @@ def main():
     while True:
         sd.start_drawing()
 
-        for snow_num in range(N) :
+        for snow_num in range(N):
             snowflake_point[snow_num] = anim_snowflake(point=snowflake_point[snow_num],
                                                        length=snowflake_shape[snow_num][0],
                                                        factors=(
-                                                                snowflake_shape[snow_num][1],
-                                                                snowflake_shape[snow_num][2],
-                                                                snowflake_shape[snow_num][3]
-                                                                ),
+                                                           snowflake_shape[snow_num][1],
+                                                           snowflake_shape[snow_num][2],
+                                                           snowflake_shape[snow_num][3]
+                                                       ),
                                                        rand=rand_num_list, speed=4)
 
-            if snowflake_point[snow_num][1] <= -40 - snowflake_shape[snow_num][0] :
+            if snowflake_point[snow_num][1] <= -40 - snowflake_shape[snow_num][0]:
                 clear_snowflake(snow_num, snowflake_point, snowflake_shape)
 
         sd.finish_drawing()
@@ -102,6 +102,7 @@ def main():
         if sd.user_want_exit():
             break
     sd.pause()
+
 
 # подсказка! для ускорения отрисовки можно
 #  - убрать clear_screen()
