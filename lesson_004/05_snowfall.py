@@ -16,13 +16,16 @@ import simple_draw as sd
 # sd.random_number()
 # sd.user_want_exit()
 
-def anim_snowflake(point, length, factors, num, speed):
+def anim_snowflake(point, length, factors, rand, speed):
     _point = sd.Point(point[0], point[1])
     sd.snowflake(center=_point, length=length,
                  color=sd.background_color, factor_a=factors[0],
                  factor_b=factors[1], factor_c=factors[2])
 
-    point = (point[0], point[1] - sd.random_number(1, speed))
+    random_index = sd.random_number(0, 19)
+
+    point = (point[0] + (rand[random_index] * sd.random_number(-1, 1)),
+             point[1] - sd.random_number(1, speed))
 
     _point = sd.Point(point[0], point[1])
     sd.snowflake(center=_point, length=length,
@@ -38,14 +41,26 @@ def clear_snowflake(snowflake_num, point_list, shape_list):
                                  sd.random_number(600+shape_list[snowflake_num][0],
                                                   700+shape_list[snowflake_num][0]))
 
+def wind_generate():
+
+
+    return
+
 def main():
     sd.resolution = (600, 500)
     N = 20
+
+    # Це список для створення вірогідності(0=55%, 1=25%, 2=15%, 3=5%)
+    rand_num_list = [0,0,0,0,0,0,0,1,1,2,
+                     0,0,0,0,0,1,1,2,2,3]
+
+    # Все до циклу while це рендер першого кадру, основи для анімації.
+
     snowflake_point = [(sd.random_number(0, 600),
                        sd.random_number(0, 500))
                        for _ in range(N)]
 
-    # Через assert, я не можу зробити діапазон від 10 до 100 тому, я зробив в так, як я зрозумів це проценти від довжини
+    # Через assert, я не можу зробити діапазон від 10 до 100 тому, я зробив так, як я зрозумів це проценти від довжини
     # та кут. Знизу частина коду сніжинки.
     # assert 0 < factor_a <= 1 - место ответвления лучиков
     # assert 0 < factor_b <= 1 - длина лучиков
@@ -64,6 +79,8 @@ def main():
                      color=sd.COLOR_WHITE, factor_a=snowflake_shape[i][1],
                      factor_b=snowflake_shape[i][2], factor_c=snowflake_shape[i][3])
 
+    # Основний цикл
+
     while True:
         sd.start_drawing()
 
@@ -75,13 +92,13 @@ def main():
                                                                 snowflake_shape[snow_num][2],
                                                                 snowflake_shape[snow_num][3]
                                                                 ),
-                                                       num=snow_num, speed=3)
+                                                       rand=rand_num_list, speed=4)
 
-            if snowflake_point[snow_num][1] <= -30 - snowflake_shape[snow_num][0] :
+            if snowflake_point[snow_num][1] <= -40 - snowflake_shape[snow_num][0] :
                 clear_snowflake(snow_num, snowflake_point, snowflake_shape)
 
         sd.finish_drawing()
-        sd.sleep(0.01)
+        sd.sleep(0.02)
         if sd.user_want_exit():
             break
     sd.pause()
