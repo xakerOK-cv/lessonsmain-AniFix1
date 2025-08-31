@@ -1,5 +1,6 @@
 import simple_draw as sd
 
+
 def draw_branches(start_point, angle, length):
     color = sd.COLOR_DARK_ORANGE
     width = int(length / 10)

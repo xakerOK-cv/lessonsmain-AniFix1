@@ -19,7 +19,7 @@ import my_burger
 push = None
 while not push:
     ingredients = ['булочки', 'котлеты', 'огурчика',
-           'помидорчика', 'майонеза', 'сыра', ]
+                   'помидорчика', 'майонеза', 'сыра', ]
     for index, ingredient in enumerate(ingredients):
         print(f'{index}. {ingredient}')
     user = int(input('Введіть номер інгредієнта бургера, або якщо ви хочете закінчити введіть любе інше число: '))

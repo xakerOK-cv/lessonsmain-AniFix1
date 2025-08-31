@@ -1,6 +1,7 @@
 import simple_draw as sd
 
-def snowdrift(rang = (), many:int = 0, snow_param=()):
+
+def snowdrift(rang=(), many: int = 0, snow_param=()):
     snowflake_point = [(sd.random_number(*rang[0]),
                         sd.random_number(*rang[1]))
                        for _ in range(many)]

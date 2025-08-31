@@ -1,5 +1,6 @@
 import simple_draw as sd
 
+
 def sun(pos, rad, col, ray_param=()):
     # ray_param 0 це кількість променів, а 1 це їх ширина
     center = sd.Point(*pos)

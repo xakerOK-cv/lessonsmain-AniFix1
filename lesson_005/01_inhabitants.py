@@ -7,5 +7,3 @@ import room_2
 
 print(f'В кімнаті room_1 живуть: {room_1.folks}',
       f'\nВ кімнаті roon_2 живуть: {room_2.folks}')
-
-

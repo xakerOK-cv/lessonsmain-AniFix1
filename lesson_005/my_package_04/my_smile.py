@@ -1,5 +1,6 @@
 import simple_draw as sd
 
+
 def smile(coordinate_x, coordinate_y, color=None):
     if color is None:
         exit()
@@ -14,7 +15,6 @@ def smile(coordinate_x, coordinate_y, color=None):
                  sd.Point((coordinate_x + 25) + 7, (coordinate_y + 16) + 7), ]
 
     random_color = sd.COLOR_DARK_CYAN
-
 
     while random_color == color:
         random_color = sd.random_color()
