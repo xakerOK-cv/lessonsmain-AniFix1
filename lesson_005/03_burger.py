@@ -29,3 +29,5 @@ while not push:
         push = True
 else:
     print('\n'.join(my_burger.burger))
+
+    # Супер!

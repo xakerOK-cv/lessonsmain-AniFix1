@@ -17,3 +17,6 @@ def sun(pos, rad, col, ray_param=()):
         sd.line(star_ray, end_point, color=col, width=ray_param[1])
 
     return None
+
+
+# OK

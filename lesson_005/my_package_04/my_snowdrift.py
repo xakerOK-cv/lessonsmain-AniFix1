@@ -25,3 +25,5 @@ def snowdrift(rang=(), many: int = 0, snow_param=()):
                      factor_b=snowflake_shape[i][2], factor_c=snowflake_shape[i][3])
 
     return None
+
+# Думаю ок не можу перевырити) тут нема Visual Studio Code import simple_draw as sd, я через нього перевіряю 

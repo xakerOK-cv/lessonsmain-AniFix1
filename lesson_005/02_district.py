@@ -19,3 +19,5 @@ rayon = ', '.join([*cf11, *cf12, *cf21, *cf22,
                    *sf11, *sf12, *sf21, *sf22], )
 
 pprint(f'На районі живуть: {rayon}')
+
+# OK!

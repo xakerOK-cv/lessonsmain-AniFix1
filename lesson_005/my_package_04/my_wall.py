@@ -24,3 +24,4 @@ def bricks(point_x, point_y, length, width):
             side = 0
         else:
             side = 1
+    #OK

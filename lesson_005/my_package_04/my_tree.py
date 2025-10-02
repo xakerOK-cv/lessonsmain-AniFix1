@@ -18,3 +18,5 @@ def draw_branches(start_point, angle, length):
 
     for _angle in angle_p_n:
         draw_branches(start_point, _angle, length)
+    
+    # Вроді ОК

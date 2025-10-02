@@ -44,3 +44,5 @@ def cheese():
 def double_cheeseburger():
     print('\n'.join(d_cheeseburger))
     return None
+
+# Типу чорнетка)
