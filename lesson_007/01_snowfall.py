@@ -43,3 +43,5 @@ while True:
 
 
 sd.pause()
+
+# поки нема класа)
