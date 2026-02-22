@@ -18,5 +18,4 @@ def sun(pos, rad, col, ray_param=()):
 
     return None
 
-
 # OK

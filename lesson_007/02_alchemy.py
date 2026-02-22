@@ -34,7 +34,6 @@ class Water:
             return Griaz(part1=self, part2=other)
 
 
-
 class Air:
 
     def __str__(self):
@@ -138,13 +137,15 @@ class Lava:
     def __str__(self):
         return 'Я лава. Состою из ' + str(self.part1) + ' и ' + str(self.part2)
 
+
 class Love:
 
     def __str__(self):
         return 'Любовь'
 
     def __add__(self, other):
-            return Life(part1=self, part2=other)
+        return Life(part1=self, part2=other)
+
 
 class Life:
 
@@ -156,7 +157,6 @@ class Life:
         return 'Я жизнь. Состою из ' + str(self.part1) + ' и ' + str(self.part2)
 
 
-
 water = Water()
 air = Air()
 fire = Fire()
@@ -166,8 +166,6 @@ result = water + air
 print(result)
 print(Water(), '+', Air(), '=', Water() + Air())
 print(Fire(), '+', Love(), '=', Fire() + Love())
-
-
 
 # Усложненное задание (делать по желанию)
 # Добавить еще элемент в игру.

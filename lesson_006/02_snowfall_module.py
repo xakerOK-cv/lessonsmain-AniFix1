@@ -1,7 +1,9 @@
 # -*- coding: utf-8 -*-
 
 import simple_draw as sd
+
 from modul_snow import snowfall as sf
+
 
 # На основе кода из lesson_004/05_snowfall.py
 # сделать модуль snowfall.py в котором реализовать следующие функции
@@ -56,14 +58,14 @@ def main():
         for snow_num in range(n):
             snow_color = snowflake_point_and_color[snow_num][2]
             snowflake_point_and_color[snow_num] = *sf.anim_snowflake(point=snowflake_point_and_color[snow_num][:2],
-                                                                  color=snowflake_point_and_color[snow_num][2],
-                                                                  length=snowflake_shape[snow_num][0],
-                                                                  factors=(
-                                                                      snowflake_shape[snow_num][1],
-                                                                      snowflake_shape[snow_num][2],
-                                                                      snowflake_shape[snow_num][3]
-                                                                  ),
-                                                                  rand=rand_num_list, speed=4), snow_color
+                                                                     color=snowflake_point_and_color[snow_num][2],
+                                                                     length=snowflake_shape[snow_num][0],
+                                                                     factors=(
+                                                                         snowflake_shape[snow_num][1],
+                                                                         snowflake_shape[snow_num][2],
+                                                                         snowflake_shape[snow_num][3]
+                                                                     ),
+                                                                     rand=rand_num_list, speed=4), snow_color
 
             if snowflake_point_and_color[snow_num][1] <= -40 - snowflake_shape[snow_num][0]:
                 sf.clear_snowflake(snow_num, snowflake_point_and_color, snowflake_shape)

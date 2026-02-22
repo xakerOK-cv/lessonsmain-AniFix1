@@ -26,4 +26,4 @@ def snowdrift(rang=(), many: int = 0, snow_param=()):
 
     return None
 
-# Думаю ок не можу перевырити) тут нема Visual Studio Code import simple_draw as sd, я через нього перевіряю 
+# Думаю ок не можу перевырити) тут нема Visual Studio Code import simple_draw as sd, я через нього перевіряю

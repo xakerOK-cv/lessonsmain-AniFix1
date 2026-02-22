@@ -1,7 +1,8 @@
 # -*- coding: utf-8 -*-
 
-import simple_draw as sd
 from random import triangular
+
+import simple_draw as sd
 
 
 # Шаг 1: Реализовать падение снежинки через класс. Внести в методы:
@@ -14,17 +15,19 @@ def chance(t_min: float, t_max: float, t_oft: float):
     if all(isinstance(x, (int, float)) for x in (t_min, t_max, t_oft)):
         return int(round(triangular(t_min, t_max, t_oft)))
 
-def get_flakes(count:int, flakes, s_speed):
+
+def get_flakes(count: int, flakes, s_speed):
     for num in range(count):
         flakes.append(Snowflake(resolution_d=sd.resolution, color=False, num=num, s_speed=s_speed))
 
 
 class Snowflake:
-    def __init__(self, resolution_d, color:bool, num, s_speed=4):
+    def __init__(self, resolution_d, color: bool, num, s_speed=4):
         self.modifier = 0
         if color:
             self.color = sd.random_color()
-        else: self.color = sd.COLOR_WHITE
+        else:
+            self.color = sd.COLOR_WHITE
         self.snowflake_shape = (sd.random_number(10, 100),  # length
                                 sd.random_number(1, 100) / 100,  # factor_a
                                 sd.random_number(10, 100) / 100,  # factor_b
@@ -34,18 +37,16 @@ class Snowflake:
                                        resolution_d[1] + self.snowflake_shape[0] + 300))
         self.speed = s_speed
 
-
     def anim_snowflake(self):
         _point = sd.Point(self.point[0], self.point[1])
         sd.snowflake(center=_point, length=self.snowflake_shape[0],
                      color=sd.background_color, factor_a=self.snowflake_shape[1],
                      factor_b=self.snowflake_shape[2], factor_c=self.snowflake_shape[3])
 
-
         point = (self.point[0] + (chance(0.0, 5.0, 0.3) * sd.random_number(-1, 1)),
                  self.point[1] - sd.random_number(1, chance(t_min=(self.speed),
-                                                               t_max=(self.speed),
-                                                               t_oft=self.speed)))
+                                                            t_max=(self.speed),
+                                                            t_oft=self.speed)))
 
         _point = sd.Point(point[0], point[1])
         sd.snowflake(center=_point, length=self.snowflake_shape[0],
@@ -105,8 +106,8 @@ def main():
     # не бачу смислу переписувати так як я майже все зробив раніше
     # єдине що я трішки змінив кож добавивши get_flakes
 
-
     sd.pause()
+
 
 if __name__ == '__main__':
     main()

@@ -28,6 +28,7 @@
 # Загаданное число хранить в глобальной переменной.
 # Обратите внимание, что строки - это список символов.
 import time
+
 import MasterMindEngine
 
 
@@ -51,6 +52,7 @@ def prerender():
     print('Вітаю.'
           'Ваше число загадане')
 
+
 def timer(calculate=False, t_time=0.):
     if calculate:
         # Було лінь писати змінні тому пишу так. Якщо коротко, то я беру час епохи, рахую переводжу в кортеж
@@ -58,6 +60,7 @@ def timer(calculate=False, t_time=0.):
         return time.strftime("%H:%M:%S", time.gmtime(time.time() - t_time))
     else:
         return time.time()
+
 
 def main():
     herd_of_cows = 0
@@ -79,11 +82,8 @@ def main():
 
         print(f'Ви вгадали {herd_of_cows} корів та  {herd_of_bulls} биків')
 
-
-
     e_time = timer(calculate=True, t_time=s_time)
     print(f'Це заняло у вас {e_time}')
-
 
 
 if __name__ == '__main__':

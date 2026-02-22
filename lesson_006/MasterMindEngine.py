@@ -1,7 +1,7 @@
 import random
 
-
 the_number = ''
+
 
 def guess_the_number():
     global the_number
