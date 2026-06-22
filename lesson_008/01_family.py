@@ -75,6 +75,7 @@ class House:
 class Human:
 
     def __init__(self, home, name=''):
+        self.life = True 
         self.name = name
         self.home = home
         self.satiety = 30
@@ -84,11 +85,15 @@ class Human:
         self.normalize_stats()
 
     def fall_of_happiness(self):
-        if self.home.mud > 90:
-            self.happiness -= 10
-        elif self.home.mud < 90:
-            self.happiness -= 5
-            # TODO
+        if self.life:
+            if 90 < self.home.mud:
+                self.happiness -= 10
+            elif self.home.mud <= 90:
+                self.happiness -= 5
+                
+            return True
+        else:
+            return False
 
 
     def normalize_stats(self):
@@ -160,7 +165,8 @@ class Husband(Human):
 
     def gaming(self):
         if self.home.mud < 90:
-            self.
+            pass
+            #TODO
 
 
 class Wife(Human):
@@ -179,12 +185,15 @@ class Wife(Human):
 
     def buy_food(self):
         pass
+    #TODO
 
     def buy_fur_coat(self):
         pass
+    #TODO
 
     def clean_house(self):
         pass
+    #TODO
 
 
 home = House()
