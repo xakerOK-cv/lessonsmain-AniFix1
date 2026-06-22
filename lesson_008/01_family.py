@@ -1,7 +1,8 @@
 # -*- coding: utf-8 -*-
+import random
 
 from termcolor import cprint
-from random import randint
+
 
 ######################################################## Часть первая
 #
@@ -45,45 +46,138 @@ from random import randint
 class House:
 
     def __init__(self):
-        pass
+        self.residents = []
+        self.pets = []
+        self.food = 50
+        self.money = 100
+        self.mud = 0
+
+    def __str__(self):
+        self.gets_muddied()
+
+    def gets_muddied(self):
+        if not self.mud >= 100:
+            self.mud += 5
+
+    def add_residents(self, residents):
+        self.residents.append(residents)
+
+    def add_pet(self, pet):
+        self.pets.append(pet)
+
+    def add_food(self, food):
+        self.food += food
+
+    def add_money(self, money):
+        self.money += money
 
 
-class Husband:
+class Human:
 
-    def __init__(self):
-        pass
+    def __init__(self, home, name=''):
+        self.name = name
+        self.home = home
+        self.satiety = 30
+        self.happiness = 100
+
+    def __str__(self):
+        self.normalize_stats()
+
+    def fall_of_happiness(self):
+        if self.home.mud > 90:
+            self.happiness -= 10
+        elif self.home.mud < 90:
+            self.happiness -= 5
+            # TODO
+
+
+    def normalize_stats(self):
+        self.satiety = max(0, min(self.satiety, 100))
+        self.home.mud = max(0, min(self.home.mud, 100))
+
+    def eat(self, portion: int):
+        if self.home.food > 0:
+
+            eaten = min(portion, self.home.food)
+            self.satiety += eaten * 1
+            self.home.add_food(-eaten)
+
+            return True
+
+    def action(self, actions: tuple | None = None):
+        if actions is None:
+            raise Exception('Немає доступних дій')
+
+        if self.satiety < 50:
+            if self.home.food > 0:
+                self.eat(portion=10 if isinstance(self, Cat) else 15)
+                return None
+
+            # if isinstance(self, Cat):
+            #     self.log(f'{self.get_name()} голодний, але їжі немає.')
+
+        if isinstance(self, Husband) and self.home.money <= 50:
+            self.work()
+            return None
+
+        more_necessary = min(self.home.mud, self.home.food)
+        if isinstance(self, Wife) and more_necessary < 65:
+            if self.home.mud < 65:
+                self.clean_house()
+                return None
+
+            if self.home.food < 65:
+                self.buy_food()
+                return None
+
+            return None
+
+
+
+        if actions is not None:
+            ret = actions[random.randint(0, len(actions) - 1)]()
+            return ret
+
+        return None
+
+
+class Husband(Human):
+
+    def __init__(self, home, name=''):
+        super().__init__(home=home, name=name)
 
     def __str__(self):
         return super().__str__()
 
-    def act(self):
-        pass
+    def act(self, actions: tuple | None):
+        super().action(actions=actions)
 
-    def eat(self):
-        pass
+    def eat(self,portion):
+        super().eat(portion=portion)
 
     def work(self):
-        pass
+        self.home.add_money(150)
 
     def gaming(self):
-        pass
+        if self.home.mud < 90:
+            self.
 
 
-class Wife:
+class Wife(Human):
 
-    def __init__(self):
-        pass
+    def __init__(self, home, name=''):
+        super().__init__(home=home, name=name)
 
     def __str__(self):
         return super().__str__()
 
-    def act(self):
-        pass
+    def act(self, actions: tuple | None):
+        super().action(actions=actions)
 
-    def eat(self):
-        pass
+    def eat(self, portion):
+        super().eat(portion=portion)
 
-    def shopping(self):
+    def buy_food(self):
         pass
 
     def buy_fur_coat(self):
@@ -94,13 +188,13 @@ class Wife:
 
 
 home = House()
-serge = Husband(name='Сережа')
-masha = Wife(name='Маша')
+serge = Husband(home=home, name='Сережа')
+masha = Wife(home=home, name='Маша')
 
 for day in range(365):
     cprint('================== День {} =================='.format(day), color='red')
-    serge.act()
-    masha.act()
+    serge.act(actions=(serge.gaming, serge.work))
+    masha.act(actions=(masha.buy_fur_coat, masha.clean_house, masha.buy_food))
     cprint(serge, color='cyan')
     cprint(masha, color='cyan')
     cprint(home, color='cyan')
