@@ -1,5 +1,6 @@
 # -*- coding: utf-8 -*-
 import random
+from functools import wraps
 
 from termcolor import cprint
 
@@ -41,6 +42,13 @@ from termcolor import cprint
 # Степень счастья не должна падать ниже 10, иначе чел умрает от депресии.
 #
 # Подвести итоги жизни за год: сколько было заработано денег, сколько сьедено еды, сколько куплено шуб.
+
+def logging(func):
+    @wraps(func)
+    def info_to_logs(*args, **kwargs):
+        pass
+        #TODO
+    return info_to_logs
 
 
 class House:
@@ -87,9 +95,9 @@ class Human:
     def fall_of_happiness(self):
         if self.life:
             if 90 < self.home.mud:
-                self.happiness -= 10
+                self.happiness -= min(self.happiness, 10)
             elif self.home.mud <= 90:
-                self.happiness -= 5
+                self.happiness -= min(self.happiness, 5)
                 
             return True
         else:
@@ -173,6 +181,7 @@ class Wife(Human):
 
     def __init__(self, home, name=''):
         super().__init__(home=home, name=name)
+        self.fur_coat = 0
 
     def __str__(self):
         return super().__str__()
@@ -188,12 +197,15 @@ class Wife(Human):
     #TODO
 
     def buy_fur_coat(self):
-        pass
-    #TODO
+        if self.home.money >= 350:
+            self.fur_coat += 1
+            self.home.money -= 350
+            return True
+        else:
+            return False
 
     def clean_house(self):
-        pass
-    #TODO
+        self.home.mud = 100
 
 
 home = House()
