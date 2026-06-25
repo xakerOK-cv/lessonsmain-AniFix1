@@ -43,12 +43,17 @@ from termcolor import cprint
 #
 # Подвести итоги жизни за год: сколько было заработано денег, сколько сьедено еды, сколько куплено шуб.
 
+#ЦЕ ДЕКОРАТОР ЛОГУВАННЯ
 def logging(func):
     @wraps(func)
     def info_to_logs(*args, **kwargs):
         pass
         #TODO
     return info_to_logs
+
+#ТУТ МОЖНА ЗРОБИТИ ДЕКОРАТОР ПЕРЕВІРКИ НА ЖИТТЯ, ЯКЩО ІСТОТА ПОМЕРЛА, 
+#ТО ПОВЕРТАЄМО ПЕВНУ ФУНКЦІЮ.
+#TODO: декоратор
 
 
 class House:
@@ -59,8 +64,14 @@ class House:
         self.food = 50
         self.money = 100
         self.mud = 0
+        self.log = {'money_yesterday' : 0,
+                    'money_for_the_whole_time' : 0,
+                    'food_yesterday' : 0,
+                    'food_for_the_whole_time' : 0,
+                    'fur_coat_for_the_whole_time' : 0 }
 
     def __str__(self):
+        #TODO: додати логування
         self.gets_muddied()
 
     def gets_muddied(self):
@@ -90,6 +101,7 @@ class Human:
         self.happiness = 100
 
     def __str__(self):
+        #TODO: додати логування
         self.normalize_stats()
 
     def fall_of_happiness(self):
@@ -103,8 +115,12 @@ class Human:
         else:
             return False
 
+    def add_happiness(self, happiness):
+        self.happiness += happiness
+
 
     def normalize_stats(self):
+        #TODO: булоб не погано переписати
         self.satiety = max(0, min(self.satiety, 100))
         self.home.mud = max(0, min(self.home.mud, 100))
 
@@ -172,9 +188,7 @@ class Husband(Human):
         self.home.add_money(150)
 
     def gaming(self):
-        if self.home.mud < 90:
-            pass
-            #TODO
+        self.add_happiness(20)
 
 
 class Wife(Human):
@@ -193,13 +207,19 @@ class Wife(Human):
         super().eat(portion=portion)
 
     def buy_food(self):
-        pass
-    #TODO
+        if self.home.money > 0:
+            food_to_buy = min(self.home.money, 50)
+            self.home.add_food(food_to_buy)
+            self.home.money -= food_to_buy
+            return True
+        else:
+            return False 
 
     def buy_fur_coat(self):
         if self.home.money >= 350:
             self.fur_coat += 1
             self.home.money -= 350
+            self.add_happiness(60)
             return True
         else:
             return False
@@ -219,6 +239,9 @@ for day in range(365):
     cprint(serge, color='cyan')
     cprint(masha, color='cyan')
     cprint(home, color='cyan')
+
+cprint(f"Прожито днів {day + 1}, зароблено грошей {home.log['money_for_the_whole_time']}, куплено шуб {home.log['fur_coat_for_the_whole_time']}, з'їдено їжі {home.log['food_for_the_whole_time']}", colors='green')
+       
 
 
 
