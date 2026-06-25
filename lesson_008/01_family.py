@@ -43,18 +43,6 @@ from termcolor import cprint
 #
 # Подвести итоги жизни за год: сколько было заработано денег, сколько сьедено еды, сколько куплено шуб.
 
-#ЦЕ ДЕКОРАТОР ЛОГУВАННЯ
-def logging(func):
-    @wraps(func)
-    def info_to_logs(*args, **kwargs):
-        pass
-        #TODO
-    return info_to_logs
-
-#ТУТ МОЖНА ЗРОБИТИ ДЕКОРАТОР ПЕРЕВІРКИ НА ЖИТТЯ, ЯКЩО ІСТОТА ПОМЕРЛА, 
-#ТО ПОВЕРТАЄМО ПЕВНУ ФУНКЦІЮ.
-#TODO: декоратор
-
 
 class House:
 
@@ -68,6 +56,7 @@ class House:
                     'money_for_the_whole_time' : 0,
                     'food_yesterday' : 0,
                     'food_for_the_whole_time' : 0,
+                    'fur_coat_yesterday' : 0,
                     'fur_coat_for_the_whole_time' : 0 }
 
     def __str__(self):
@@ -85,23 +74,31 @@ class House:
         self.pets.append(pet)
 
     def add_food(self, food):
+        self.log['food_yesterday'] = self.food
         self.food += food
+        self.log['food_for_the_whole_time'] += food
 
     def add_money(self, money):
+        self.log['money_yesterday'] = self.money
         self.money += money
+        self.log['money_for_the_whole_time'] += money
 
 
 class Human:
 
     def __init__(self, home, name=''):
-        self.life = True 
+        self.life = True
         self.name = name
         self.home = home
         self.satiety = 30
         self.happiness = 100
 
-    def __str__(self):
+    def __str__(self, act):
         #TODO: додати логування
+        #заготовка під перевірку дії
+        match act:
+            case '':
+                pass
         self.normalize_stats()
 
     def fall_of_happiness(self):
@@ -110,7 +107,7 @@ class Human:
                 self.happiness -= min(self.happiness, 10)
             elif self.home.mud <= 90:
                 self.happiness -= min(self.happiness, 5)
-                
+
             return True
         else:
             return False
@@ -121,18 +118,19 @@ class Human:
 
     def normalize_stats(self):
         #TODO: булоб не погано переписати
-        self.satiety = max(0, min(self.satiety, 100))
         self.home.mud = max(0, min(self.home.mud, 100))
 
     def eat(self, portion: int):
         if self.home.food > 0:
-
             eaten = min(portion, self.home.food)
             self.satiety += eaten * 1
             self.home.add_food(-eaten)
-
             return True
+        else:
+            return False
 
+    # TODO: зробити нормальну перевірку на життя
+    # TODO: зробити втрату голоду від кожної дії, окрім їжі
     def action(self, actions: tuple | None = None):
         if actions is None:
             raise Exception('Немає доступних дій')
@@ -217,7 +215,9 @@ class Wife(Human):
 
     def buy_fur_coat(self):
         if self.home.money >= 350:
+            self.home.log['fur_coat_yesterday'] = self.home.fur_coat
             self.fur_coat += 1
+            self.home.log['fur_coat_for_the_whole_time'] += 1
             self.home.money -= 350
             self.add_happiness(60)
             return True
@@ -240,7 +240,9 @@ for day in range(365):
     cprint(masha, color='cyan')
     cprint(home, color='cyan')
 
-cprint(f"Прожито днів {day + 1}, зароблено грошей {home.log['money_for_the_whole_time']}, куплено шуб {home.log['fur_coat_for_the_whole_time']}, з'їдено їжі {home.log['food_for_the_whole_time']}", colors='green')
+cprint(f"Прожито днів {day + 1}, зароблено грошей {home.log['money_for_the_whole_time']}, "
+       f"куплено шуб {home.log['fur_coat_for_the_whole_time']}, з'їдено їжі {home.log['food_for_the_whole_time']}",
+       colors='green')
        
 
 
