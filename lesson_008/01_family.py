@@ -43,6 +43,25 @@ from termcolor import cprint
 #
 # Подвести итоги жизни за год: сколько было заработано денег, сколько сьедено еды, сколько куплено шуб.
 
+def life(func):
+    @wraps(func)
+    def wrapper(self, *args, **kwargs):
+        if self.life:
+            return func(self, *args, **kwargs)
+        else:
+            match type(self).__name__:
+                case 'Husband':
+                    print(f"{self.name} мертвий.")
+                case 'Wife' :
+                    print(f"{self.name} мертва.")
+                case _ :
+                    print(f"{self.name} мертвий.")
+            return False
+    return wrapper
+
+def normalize_stats(norm):
+     norm = max(0, min(norm, 100))
+     return norm
 
 class House:
 
@@ -56,16 +75,25 @@ class House:
                     'money_for_the_whole_time' : 0,
                     'food_yesterday' : 0,
                     'food_for_the_whole_time' : 0,
+                    'mud_yesterday' : 0,
                     'fur_coat_yesterday' : 0,
                     'fur_coat_for_the_whole_time' : 0 }
 
     def __str__(self):
-        #TODO: додати логування
+        print(f'{'='*10}',
+              'Сьогодні в будинку:',
+              *[f"Жителі: {r.name} ==> {'Живий' if r.life else 'Мертвий'}" for r in self.residents],
+              # *[f"Улюбленці: {self.pets.name} ==> "
+              #   f"{'Живий' if self.pets.life else 'Мертвий'}" for r in self.residents],
+              f"Кошти: {self.log['money_for_the_whole_time']} ==> {self.money}",
+              f"Їжі: {self.log['food_yesterday']} ==> {self.food}",
+              f"Забрудненість: {self.log['mud_yesterday']} ==> {self.mud}",)
         self.gets_muddied()
 
     def gets_muddied(self):
         if not self.mud >= 100:
-            self.mud += 5
+            normal = min(5, 100 - self.mud)
+            self.mud += normal
 
     def add_residents(self, residents):
         self.residents.append(residents)
@@ -92,80 +120,99 @@ class Human:
         self.home = home
         self.satiety = 30
         self.happiness = 100
+        self.last_action = ''
 
-    def __str__(self, act):
-        #TODO: додати логування
-        #заготовка під перевірку дії
-        match act:
-            case '':
-                pass
-        self.normalize_stats()
+    @life
+    def __str__(self):
+        if self.last_action == 'eat':
+            match type(self).__name__:
+                case 'Husband':
+                    print(f"{self.name} ")
+                case 'Wife':
+                    print(f"{self.name} ")
+                case 'Pet':
+                    print(f"{self.name} ")
+                case _:
+                    raise Exception(f"Невідомий класс {type(self).__name__}, {self.name}.")
+        else:
+            match self.last_action:
+                case 'work':
+                    print(f"{self.name} попрацював.")
+                case 'gaming':
+                    print(f"{self.name} пограв.")
+                case 'buy_food':
+                    print(f"{self.name} купила їжі.")
+                case 'buy_fur_coat':
+                    print(f"{self.name} купила шубу.")
+                case 'not_buy_fur_coat':
+                    print(f"{self.name} не вистачило на шубу.")
+                case 'clean_house':
+                    print(f"{self.name} віддраяла будинок.")
+                case _:
+                    raise ValueError(f"Невідома дія: {self.last_action}")
+        self.fall_of_happiness()
+
+        self.satiety = normalize_stats(norm=self.satiety)
+        self.happiness = normalize_stats(norm=self.happiness)
 
     def fall_of_happiness(self):
-        if self.life:
-            if 90 < self.home.mud:
-                self.happiness -= min(self.happiness, 10)
-            elif self.home.mud <= 90:
-                self.happiness -= min(self.happiness, 5)
+        if 90 < self.home.mud:
+            self.happiness -= min(self.happiness, 10)
+        elif self.home.mud <= 90:
+            self.happiness -= min(self.happiness, 5)
 
-            return True
+    def loss_of_satiety(self):
+        if self.satiety >= 0 :
+            self.satiety -= min(self.satiety, 10)
         else:
-            return False
+            self.life = False
 
     def add_happiness(self, happiness):
         self.happiness += happiness
 
-
-    def normalize_stats(self):
-        #TODO: булоб не погано переписати
-        self.home.mud = max(0, min(self.home.mud, 100))
-
     def eat(self, portion: int):
-        if self.home.food > 0:
-            eaten = min(portion, self.home.food)
-            self.satiety += eaten * 1
-            self.home.add_food(-eaten)
-            return True
-        else:
-            return False
+        eaten = min(portion, self.home.food)
+        self.satiety += eaten * 1
+        self.home.add_food(-eaten)
+        return 'eat'
 
-    # TODO: зробити нормальну перевірку на життя
-    # TODO: зробити втрату голоду від кожної дії, окрім їжі
+    # НІКОЛИ НЕ ПОВЕРТАТИ FALSE
     def action(self, actions: tuple | None = None):
         if actions is None:
             raise Exception('Немає доступних дій')
 
         if self.satiety < 50:
             if self.home.food > 0:
-                self.eat(portion=10 if isinstance(self, Cat) else 15)
-                return None
+                self.last_action = self.eat(portion=30)
+                return True
 
             # if isinstance(self, Cat):
             #     self.log(f'{self.get_name()} голодний, але їжі немає.')
 
         if isinstance(self, Husband) and self.home.money <= 50:
-            self.work()
-            return None
+            self.last_action = self.work()
+            return True
 
-        more_necessary = min(self.home.mud, self.home.food)
-        if isinstance(self, Wife) and more_necessary < 65:
-            if self.home.mud < 65:
-                self.clean_house()
-                return None
+        more_necessary = True if (self.home.food <= 65 and self.home.money > 0) or self.home.mud >= 60 else False
 
-            if self.home.food < 65:
-                self.buy_food()
-                return None
+        if isinstance(self, Wife) and more_necessary:
+            if self.home.mud >= 60:
+                self.last_action = self.clean_house()
+                return True
 
-            return None
+            if self.home.food <= 65 and self.home.money > 0:
+                self.last_action = self.buy_food()
+                return True
+
+            raise Exception(f"Помилка в логіці")
 
 
 
         if actions is not None:
-            ret = actions[random.randint(0, len(actions) - 1)]()
-            return ret
+            self.last_action = actions[random.randint(0, len(actions) - 1)]()
+            return True
 
-        return None
+        raise Exception(f"Не одна дія не була виконана")
 
 
 class Husband(Human):
@@ -177,16 +224,23 @@ class Husband(Human):
         return super().__str__()
 
     def act(self, actions: tuple | None):
-        super().action(actions=actions)
+        if self.life:
+            return super().action(actions=actions)
+        return None
+
 
     def eat(self,portion):
-        super().eat(portion=portion)
+        return super().eat(portion=portion)
 
     def work(self):
         self.home.add_money(150)
+        self.loss_of_satiety()
+        return 'work'
 
     def gaming(self):
         self.add_happiness(20)
+        self.loss_of_satiety()
+        return 'gaming'
 
 
 class Wife(Human):
@@ -199,19 +253,19 @@ class Wife(Human):
         return super().__str__()
 
     def act(self, actions: tuple | None):
-        super().action(actions=actions)
+        if self.life:
+            return super().action(actions=actions)
+        return None
 
     def eat(self, portion):
-        super().eat(portion=portion)
+        return super().eat(portion=portion)
 
     def buy_food(self):
-        if self.home.money > 0:
-            food_to_buy = min(self.home.money, 50)
-            self.home.add_food(food_to_buy)
-            self.home.money -= food_to_buy
-            return True
-        else:
-            return False 
+        food_to_buy = min(self.home.money, 50)
+        self.home.add_food(food_to_buy)
+        self.home.money -= food_to_buy
+        self.loss_of_satiety()
+        return 'buy_food'
 
     def buy_fur_coat(self):
         if self.home.money >= 350:
@@ -220,12 +274,15 @@ class Wife(Human):
             self.home.log['fur_coat_for_the_whole_time'] += 1
             self.home.money -= 350
             self.add_happiness(60)
-            return True
+            self.loss_of_satiety()
+            return 'buy_fur_coat'
         else:
-            return False
+            return 'not_buy_fur_coat'
 
     def clean_house(self):
         self.home.mud = 100
+        self.loss_of_satiety()
+        return 'clean_house'
 
 
 home = House()
@@ -332,22 +389,22 @@ class Child:
 
 
 
-home = House()
-serge = Husband(name='Сережа')
-masha = Wife(name='Маша')
-kolya = Child(name='Коля')
-murzik = Cat(name='Мурзик')
-
-for day in range(365):
-    cprint('================== День {} =================='.format(day), color='red')
-    serge.act()
-    masha.act()
-    kolya.act()
-    murzik.act()
-    cprint(serge, color='cyan')
-    cprint(masha, color='cyan')
-    cprint(kolya, color='cyan')
-    cprint(murzik, color='cyan')
+# home = House()
+# serge = Husband(name='Сережа')
+# masha = Wife(name='Маша')
+# kolya = Child(name='Коля')
+# murzik = Cat(name='Мурзик')
+#
+# for day in range(365):
+#     cprint('================== День {} =================='.format(day), color='red')
+#     serge.act()
+#     masha.act()
+#     kolya.act()
+#     murzik.act()
+#     cprint(serge, color='cyan')
+#     cprint(masha, color='cyan')
+#     cprint(kolya, color='cyan')
+#     cprint(murzik, color='cyan')
 
 
 # Усложненное задание (делать по желанию)
