@@ -51,12 +51,12 @@ def life(func):
         else:
             match type(self).__name__:
                 case 'Husband':
-                    print(f"{self.name} мертвий.")
+                    res = (f"{self.name} мертвий.")
                 case 'Wife':
-                    print(f"{self.name} мертва.")
+                    res = (f"{self.name} мертва.")
                 case _:
-                    print(f"{self.name} мертвий.")
-            return False
+                    res = (f"{self.name} мертвий.")
+            return res
     return wrapper
 
 def normalize_stats(norm):
@@ -160,6 +160,17 @@ class Human:
         self.happiness = normalize_stats(norm=self.happiness)
 
         return result
+    
+    def life_check(self):
+        if self.satiety <= 0:
+            self.life = False
+            print(f"{self.name} помер від голоду.")
+        elif self.happiness <= 10:
+            if random.randint(0, 3) != 0:
+                self.life = False
+                print(f"{self.name} помер/ла від депресії.")
+            else:
+                print(f"{self.name} має сильну жагу до життя.")
 
     def fall_of_happiness(self):
         if 90 < self.home.mud:
@@ -186,6 +197,8 @@ class Human:
     def action(self, actions: tuple | None = None):
         if actions is None:
             raise Exception('Немає доступних дій')
+
+        self.life_check()
 
         if self.satiety < 50:
             if self.home.food > 0:
@@ -300,8 +313,8 @@ for day in range(365):
     cprint(masha, color='cyan')
     cprint(home, color='cyan')
 
-cprint(f"Прожито днів {day + 1}, зароблено грошей {home.log['money_for_the_whole_time']}, "
-       f"куплено шуб {home.log['fur_coat_for_the_whole_time']}, з'їдено їжі {home.log['food_for_the_whole_time']}",
+cprint("\n".join(f"Прожито днів {day + 1}, зароблено грошей {home.log['money_for_the_whole_time']}, "
+       f"куплено шуб {home.log['fur_coat_for_the_whole_time']}, з'їдено їжі {home.log['food_for_the_whole_time']}"),
        colors='green')
        
 
